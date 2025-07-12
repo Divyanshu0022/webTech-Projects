@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BURGER KING Order Form</title>
+</head>
+<body style="background-image: url('restaurant.jpeg'); background-size:cover;">
+    <h1 style="text-align: center; font-weight: bold;font-family: 'Gill Sans'; color: #44fb44; font-weight: 900;"><u><i>*BURGER KING*</i></u></h1><hr  color="#44fb44" size="3px"/>
+
+<br> <br>
+    <div style="display: flex; justify-content: center;">
+        <!-- Left side: Labels and input fields -->
+        <table cellpadding="4">
+            <tr>
+                <td ><label for="orderId" style="color: #00fbff; font-family: 'Gill Sans';font-weight: bolder;"><h4><b>Order ID:</b></h4></label></td>
+                <td><input type="text" id="orderId"></td>
+            </tr>
+            <tr>
+                <td><label for="customerName" style="color: #00fbff;font-family: 'Gill Sans';"><h4><b>Customer Name:</b></h4></label></td>
+                <td><input type="text" id="customerName"></td>
+            </tr>
+            <tr>
+                <td><label for="mobileNumber" style="color: #00fbff;font-family: 'Gill Sans';"><h4><b>Mobile Number:</b></h4></label></td>
+                <td>
+                    <input type="text" id="mobileNumber" pattern="[0-9]{10}" placeholder="+91" required>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="email" style="color: #00fbff; font-family: 'Gill Sans';"><h4><b>Email:</b></h4></label></td>
+                <td><input type="email" id="email"></td>
+            </tr>
+        </table>
+        <table cellpadding="10">
+            <tr>
+                <td><img src="burger1.gif" alt="Burger GIF" width="200"></td>
+            </tr>
+        </table>
+        
+    </div>
+
+    <!-- Checkboxes for burger options -->
+    <table align="center" cellpadding="15">
+        <tr>
+            <td><label style="color: #00fbff; font-family: 'Gill Sans';" ><h4<b>Choose Burger:</b></h4></label></td>
+            <td>
+                <input type="checkbox" id="normalBurger" value="300" style="cursor: pointer;"><b style="color: #02ffd1;">Normal Burger (₹300)</b> <br>
+                <input type="checkbox" id="specialBurger" value="350" style="cursor: pointer;"> <b style="color: #02ffd1;">Special Burger (₹350)</b><br>
+                <input type="checkbox" id="extraCheeseBurger" value="400" style="cursor: pointer;"><b style="color: #02ffd1;">Burger with Extra Cheese (₹400) </b><br>
+                <input type="checkbox" id="friesBurger" value="470" style="cursor: pointer;"><b style="color: #02ffd1;"> Burger with Fries (₹470)</b><br>
+            </td>
+        </tr>
+        <tr>
+            <td><label style="color: #00fbff; font-family: 'Gill Sans';"><b>Total Amount:</b></label></td>
+            <td><input type="text" id="totalAmount" placeholder="00.00-/ Rs" readonly></td>
+        </tr>
+        <tr>
+            <td><label style="color: #00fbff; font-family: 'Gill Sans';"><b>GST (8%):</b></label></td>
+            <td><input type="text" id="gstAmount" placeholder="00.00-/ Rs" readonly></td>
+        </tr>
+        <tr>
+            <td><label style="color: #00fbff; font-family: 'Gill Sans';"><b>Net Amount:</b></label></td>
+            <td><input type="text" id="netAmount" placeholder="00.00-/ Rs" readonly></td>
+        </tr>
+    </table>
+
+    
+    <div style="text-align: center;">
+        <button style="cursor : pointer ;" onclick="location.href = '../index.html';">HOME</button>
+        <button onclick="clearForm()">Clear</button>
+        <button onclick="window.close()">Exit</button>
+    </div>
+</body>
+</html>
+
+<script lang="javascript">
+    
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const totalAmountInput = document.getElementById('totalAmount');
+    const gstAmountInput = document.getElementById('gstAmount');
+    const netAmountInput = document.getElementById('netAmount');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateAmounts);
+    });
+
+    function updateAmounts() {
+        let totalAmount = 0;
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                totalAmount = totalAmount + parseFloat(checkbox.value);
+            }
+        });
+
+        const gstAmount = (totalAmount * 0.08).toFixed(2);
+        const netAmount = (totalAmount + parseFloat(gstAmount)).toFixed(2);
+
+        totalAmountInput.value = totalAmount;
+        gstAmountInput.value = gstAmount;
+        netAmountInput.value = netAmount;
+    }
+
+    
+    function clearForm() {
+        document.getElementById('orderId').value = '';
+        document.getElementById('customerName').value = '';
+        document.getElementById('mobileNumber').value = '';
+        document.getElementById('email').value = '';
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        totalAmountInput.value = '';
+        gstAmountInput.value = '';
+        netAmountInput.value = '';
+    }
+    </script>
+
