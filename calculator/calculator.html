@@ -1,57 +1,131 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Calculator</title>
+  <meta charset="UTF-8">
+  <title>Styled Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #Display {
+      width: 100%;
+      padding: 20px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background-color: #f0f0f0;
+      box-shadow: inset 0 0 5px #aaa;
+    }
+
+    .btn {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      border-radius: 15px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 15px #fff;
+    }
+
+    .operator {
+      background-color: #ff6b6b;
+      color: white;
+      font-size: 22px;
+    }
+
+    .equal {
+      background-color: #1dd1a1;
+      color: white;
+      font-size: 24px;
+      width: 140px;
+    }
+
+    .special {
+      background-color: #576574;
+      color: white;
+      width: 140px;
+    }
+
+    .nav-btn {
+      background-color: #10ac84;
+      color: white;
+    }
+  </style>
 </head>
-<body style="background-color: aquamarine;">
-    <center>
-  <table border="0" cellspacing="10" cellpadding="35" style="background-color: beige; border-radius: 30px;">
-    <th colspan="4"  ><input size="60px"  type="text" id="Display" placeholder="&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ENTER NUMBERS TO CALCULATE"  disabled></th>
-    <tr>
-        <td><input type="button" value="1" onclick="insertElem(1)"></td>
-        <td><input type="button" value="2" onclick="insertElem(2)"></td>
-        <td><input type="button" value="3" onclick="insertElem(3)"></td>
-        <td><input type="button" value="+" onclick="insertElem('+')"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="4" onclick="insertElem(4)"></td>
-        <td><input type="button" value="5" onclick="insertElem(5)"></td>
-        <td><input type="button" value="6" onclick="insertElem(6)"></td>
-        <td><input type="button" value="-" onclick="insertElem('-')"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="7" onclick="insertElem(7)"></td>
-        <td><input type="button" value="8" onclick="insertElem(8)"></td>
-        <td><input type="button" value="9" onclick="insertElem(9)"></td>
-        <td><input type="button" value="*" onclick="insertElem('*')"></td>
-    </tr>
-    <tr>
-        <td><input type="button" value="/" onclick="insertElem('/')"></td>
-        <td><input type="button" value="0" onclick="insertElem('0')"></td>
-        <td><input type="button" value="." onclick="insertElem('.')"></td>
-        <td><input type="button" value="=" onclick="Equal()"></td>
-    </tr>
-    <th colspan=""><input type="button" value="Clear All" class="Clear" onclick="Clear()"></th>
-    <td><button style="cursor : pointer ;" onclick="location.href = '../dashboard.html';">HOME</button></td>
-    <td><button onclick="window.close()">Exit</button></td>
-    <td><button onclick="window.print()">Print</button></td>
-  </table> 
-</center>
+<body>
+  <div class="calculator">
+    <input type="text" id="Display" placeholder="Enter numbers..." disabled>
+    <div>
+      <button class="btn" onclick="insertElem(1)">1</button>
+      <button class="btn" onclick="insertElem(2)">2</button>
+      <button class="btn" onclick="insertElem(3)">3</button>
+      <button class="btn operator" onclick="insertElem('+')">+</button>
+    </div>
+    <div>
+      <button class="btn" onclick="insertElem(4)">4</button>
+      <button class="btn" onclick="insertElem(5)">5</button>
+      <button class="btn" onclick="insertElem(6)">6</button>
+      <button class="btn operator" onclick="insertElem('-')">−</button>
+    </div>
+    <div>
+      <button class="btn" onclick="insertElem(7)">7</button>
+      <button class="btn" onclick="insertElem(8)">8</button>
+      <button class="btn" onclick="insertElem(9)">9</button>
+      <button class="btn operator" onclick="insertElem('*')">×</button>
+    </div>
+    <div>
+      <button class="btn operator" onclick="insertElem('/')">÷</button>
+      <button class="btn" onclick="insertElem(0)">0</button>
+      <button class="btn" onclick="insertElem('.')">.</button>
+      <button class="btn equal" onclick="Equal()">=</button>
+    </div>
+    <div>
+      <button class="btn special" onclick="Clear()">Clear</button>
+      <button class="btn nav-btn" onclick="location.href = '../dashboard.html';">Home</button>
+      <button class="btn nav-btn" onclick="window.close()">Exit</button>
+      <button class="btn nav-btn" onclick="window.print()">Print</button>
+    </div>
+  </div>
+
   <script>
-  document.getElementById("Display").value="";
-function insertElem(num){
-    return document.getElementById("Display").value+=num;
-}
-
-
-function Equal(){
-    return document.getElementById("Display").value=eval(document.getElementById("Display").value);
-}
-
-function Clear(){
-    return document.getElementById("Display").value="";
-}
- </script>
-  
+    document.getElementById("Display").value = "";
+    function insertElem(num) {
+      document.getElementById("Display").value += num;
+    }
+    function Equal() {
+      try {
+        document.getElementById("Display").value = eval(document.getElementById("Display").value);
+      } catch {
+        document.getElementById("Display").value = "Error";
+      }
+    }
+    function Clear() {
+      document.getElementById("Display").value = "";
+    }
+  </script>
 </body>
-  
 </html>
