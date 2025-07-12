@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Madhubani Dell Laptop Showroom</title>
+</head>
+<body style="background: url(background2.jpg) no-repeat center;">
+    <h1 style="text-align: center; font-weight: bold; color:#7a0101; font-family: 'Gill Sans';">*Madhubani Dell Laptop Showroom*</h1><hr  color="#7a0101" size="3px"/>
+   <table border="1" style="background: url(background2.jpg);"> 
+    <marquee behavior="alternate" direction="right" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="15" style="overflow="; >
+        <img src="dell1.jpeg" alt="Product 1">
+        <img src="dell2.jpeg" alt="Product 2">
+        <img src="dell3.jpeg" alt="Product 3">
+        <img src="dell5.jpeg" alt="Product 5">
+        <img src="dell4.jpeg" alt="Product 4">
+    </marquee></table>
+<center><table cellspacing="20" style="background: url(background.jpg); height: 35%; width: 58%; border: 2; border-radius: 10px;">
+        <tr >
+            <td><b><mark>Customer Name:</mark></b></td>
+            <td><input type="text" placeholder="Enter your name"></td>
+            <td><b><mark>e-mail:</mark></b></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td><b><mark>Contact Number:</mark></b></td>
+            <td><input type="text" placeholder="Enter your number"></td>
+            <td><b><mark>Address:</mark></b></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td style="color: #1606a5;"><b>(a). Vostro Series(rs 40000-/):</b></td>
+            <td><input style="cursor: pointer;" type="checkbox" value="40000" onclick="calculateAmount()"></td>
+            <td><b><mark>Discount:</mark></b></td>
+            <td>
+                <input type="radio" name="discount" value="0.10">10%
+                <input type="radio" name="discount" value="0.20">20%
+                <input type="radio" name="discount" value="0.30">30%
+            </td>
+        </tr>
+        <tr>
+            <td style="color: #1606a5;"><b>(b). Studio Series(rs 50000-/):</b></td>
+            <td><input style="cursor: pointer;" type="checkbox" value="50000" onclick="calculateAmount()"></td>
+            <td><b><mark>Amount:</mark></b></td>
+            <td><input type="text" readonly id="amount"></td>
+        </tr>
+        <tr>
+            <td style="color: #1606a5;"><b>(c). Comer Series(rs 75000-/):</b></td>
+            <td><input style="cursor: pointer;" type="checkbox" value="75000" onclick="calculateAmount()"></td>
+            <td><b><mark>Discount Amount:</mark></b></td>
+            <td><input type="text" readonly id="discountedAmount"></td>
+        </tr>
+        <tr>
+            <td style="color: #1606a5;"><b>(d). Gaming Series (rs 95000-/):</b></td>
+            <td><input style="cursor: pointer;" type="checkbox" value="95000" onclick="calculateAmount()"></td>
+            <td><b><mark>GST (18%):</mark></b></td>
+            <td><input type="text" readonly id="gstAmount"></td>
+        </tr>
+        <tr>&nbsp;</tr>
+        <tr >
+             <td><b><mark>Total Net Amount:</mark></b></td>
+            <td><input type="text" readonly id="totalAmount"></td>
+        </tr>
+    </table>
+    <p style="text-align: center; color: #07516f;"><b>Thank you for visiting!</b></p>
+    <button style="cursor: pointer;" onclick="clearForm()">Clear</button>
+    <button style="cursor : pointer ;" onclick="location.href = '../dashboard.html';">HOME</button>
+    <button style="cursor: pointer;" onclick="window.print()">Print Page</button>
+    <button style="cursor: pointer;" onclick="window.close()"> Exit</button>
+</center>
+    
+<script>
+    function calculateAmount() {
+    // Get checkbox values and calculate total amount
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let totalAmount = 0;
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            totalAmount += parseFloat(checkbox.value);
+        }
+    });
+
+    // Apply discount if selected
+    const discountRadio = document.querySelector('input[name="discount"]:checked');
+    let discountedAmount = totalAmount;
+    if (discountRadio) {
+        const discountPercentage = parseFloat(discountRadio.value);
+        discountedAmount *= (1 - discountPercentage);
+    }
+
+    // Calculate GST (18%)
+    const gstAmount = discountedAmount * 0.18;
+
+    // Update input fields
+    document.getElementById('amount').value = totalAmount.toFixed(2);
+    document.getElementById('discountedAmount').value = discountedAmount.toFixed(2);
+    document.getElementById('gstAmount').value = gstAmount.toFixed(2);
+
+    // Call updateTotalNetAmount() here
+    updateTotalNetAmount();
+}
+
+function updateTotalNetAmount() {
+    // Calculate total net amount
+    const discountedAmount = parseFloat(document.getElementById('discountedAmount').value);
+    const gstAmount = parseFloat(document.getElementById('gstAmount').value);
+    const totalAmount = discountedAmount + gstAmount;
+
+    // Update 'totalAmount' input field
+    document.getElementById('totalAmount').value = totalAmount.toFixed(2);
+}
+
+// Add an event listener for discount radio buttons
+const discountRadios = document.querySelectorAll('input[name="discount"]');
+discountRadios.forEach((radio) => {
+    radio.addEventListener('change', calculateAmount);
+});
+
+    function clearForm() {
+        // Reset all input fields
+        document.querySelectorAll('input[type="text"]').forEach((input) => {
+            input.value = '';
+        });
+        document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+        document.querySelector('input[name="discount"]:checked').checked = false;
+    } 
+
+</script>
+    
+    
+</body>
+</html>

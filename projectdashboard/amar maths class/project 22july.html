@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Amar Maths Classes</title>
+</head>
+
+<body style="background: url(background.jpg) no-repeat center; background-color: #ffe4c4;">
+
+    <h1 style="text-align: center; color: #8b0000; font-family: 'Lucida Sans'; font-stretch:wider;">*AMAR MATHS CLASSES*</h1><hr color="#8b00" size="3px"/>
+
+    <marquee behavior="scroll" direction="right" scrollamount="13" onmouseover="stop()" onmouseout="start()">
+        <img src="image1.jpeg" alt="Math Image 1" style="border: 3px solid red;">
+        <img src="image2.jpeg" alt="Math Image 2" style="border: 3px solid red;">
+        <img src="image3.jpeg" alt="Math Image 3" style="border: 3px solid red;">
+        <img src="image1.jpeg" alt="Math Image 4" style="border: 3px solid red;">
+    </marquee>
+
+    <!-- Input Fields -->
+    <div >
+        <table align="center" border="1" cellspacing="0" style="background: #dbe36a; width: 60%;">
+            <tr>
+                <td><label><h4>Student ID:</h4></label></td>
+                <td><input type="text" id="studentId" placeholder="only numbers"></td>
+            </tr>
+            <tr>
+                <td><label><h4> Student Name:</h4></label></td>
+                <td><input type="text" id="studentName" placeholder="only character"></td>
+            </tr>
+            <tr>
+                <td><label><h4>Course Fee:</h4></label></td>
+                <td><input type="number" id="courseFee" placeholder="Enter course fee" min="0"></td>
+            </tr>
+            <tr>
+                <td><label><h4>Discount (%):</h4></label></td>
+                <td>
+                    <select id="discountPercentage" onchange="updateDiscountedPrice()">
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label><h4>Discounted Price:</h4></label></td>
+                <td><input type="text" id="discountedPrice" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <!-- Calculated Field -->
+                    <h4>Amount to be paid: <span id="amountPaid">0</span></h4>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+
+    <!-- Buttons -->
+    <div style="text-align: center;">
+        <button style="cursor: pointer;" onclick="calculateAmount()">Calculate</button>
+        <button style="cursor : pointer ;" onclick="location.href = '../dashboard.html';">HOME</button>
+        <button type="reset" style="cursor: pointer;" >Clear</button>
+        <button style="cursor: pointer;" onclick="window.close()">Exit</button>
+    </div>
+
+    <script lang="javascript">
+        function calculateAmount() {
+            const courseFeeInput = document.getElementById("courseFee");
+            const discountPercentageInput = document.getElementById("discountPercentage");
+
+            const courseFee = courseFeeInput.value;
+            const discountPercentage = discountPercentageInput.value;
+
+            const discountAmount = (courseFee * discountPercentage) / 100;
+            const amountPaid = courseFee - discountAmount;
+
+            document.getElementById("amountPaid").textContent = amountPaid.toFixed(2);
+            document.getElementById("discountedPrice").value = amountPaid.toFixed(2);
+        }
+
+        function clearForm() {
+            document.getElementById("studentId").value = "";
+            document.getElementById("studentName").value = "";
+            document.getElementById("courseFee").value = "";
+            document.getElementById("discountPercentage").value = "10";
+            document.getElementById("amountPaid").textContent = "0";
+            document.getElementById("discountedPrice").value = "";
+        }
+
+        function updateDiscountedPrice() {
+            calculateAmount();
+        }
+        
+    </script>
+
+</body>
+
+</html>
